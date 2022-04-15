@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.shaw.sanos.client.provider.ProviderProcessorConfigure,\
+com.shaw.sanos.client.consumer.ConsumerProcessorConfigure

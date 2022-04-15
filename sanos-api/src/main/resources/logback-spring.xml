@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="10 seconds">
+
+    <!-- 日志输出路径: logging.path 在application.properties中配置，注意下面是 springProperty 不是 property -->
+    <springProperty scope="context" name="logging.path" source="logging.path"/>
+    <!-- 日志输出格式 -->
+    <property name="log.pattern" value="%d{YY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n" />
+
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <contextName>logback</contextName>
+
+
+    <!-- 系统日志输出 -->
+    <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logging.path}/info.log</file>
+        <!-- 循环政策：基于时间创建日志文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件名格式 -->
+            <fileNamePattern>${logging.path}/info.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 日志最大的历史 60天 -->
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>INFO</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="file_warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logging.path}/warn.log</file>
+        <!-- 循环政策：基于时间创建日志文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件名格式 -->
+            <fileNamePattern>${logging.path}/warn.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 日志最大的历史 60天 -->
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>WARN</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logging.path}/error.log</file>
+        <!-- 循环政策：基于时间创建日志文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件名格式 -->
+            <fileNamePattern>${logging.path}/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 日志最大的历史 60天 -->
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>ERROR</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <!-- 添加本地日志记录 -->
+        <appender-ref ref="file_info" />
+        <appender-ref ref="file_warn" />
+        <appender-ref ref="file_error" />
+    </root>
+    <logger name="org.apache.flume.sink.LoggerSink" additivity="false">
+        <level value="INFO"/>
+    </logger>
+</configuration>
