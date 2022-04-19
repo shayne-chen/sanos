@@ -1,12 +1,7 @@
 package com.shaw.sanos.api.controller;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.shaw.sanos.api.controller.dto.ProviderNodeDTO;
 import com.shaw.sanos.api.utils.ResponseUtil;
-import com.shaw.sanos.common.enums.ExceptionCodeEnum;
-import com.shaw.sanos.common.exceptions.SanosErrorException;
-import com.shaw.sanos.common.exceptions.SanosException;
 import com.shaw.sanos.manager.instance.InstanceNodeManager;
 import com.shaw.sanos.transport.entity.Response;
 import com.shaw.sanos.transport.instance.InstanceNode;
@@ -39,7 +34,6 @@ public class SanosApiController {
 
     @PostMapping("/heart/beat")
     public Response heartBeatInstance(@RequestBody ProviderNodeDTO nodeDTO) {
-        logger.info("收到心跳, {}", nodeDTO.toString());
         InstanceNode node = new InstanceNode(nodeDTO.getApplication(), nodeDTO.getIp(),
                 Integer.parseInt(nodeDTO.getPort()), nodeDTO.getLastActiveTime());
         logger.info("provider heartbeat, info: {}", node.toString());
@@ -47,9 +41,17 @@ public class SanosApiController {
         return ResponseUtil.returnSuccess();
     }
 
+    @PostMapping("/provider/shutdown")
+    public Response providerShutdown(@RequestBody ProviderNodeDTO nodeDTO) {
+        logger.info("provider shutdown, {}", nodeDTO.toString());
+        InstanceNode node = new InstanceNode(nodeDTO.getApplication(), nodeDTO.getIp(),
+                Integer.parseInt(nodeDTO.getPort()), nodeDTO.getLastActiveTime());
+        instanceNodeManager.expireNode(node);
+        return ResponseUtil.returnSuccess();
+    }
+
     @GetMapping("/provider/get")
     public Response getProviderNodes(@RequestParam String application) {
-        logger.info("/provider/get, app = {}", application);
         return ResponseUtil.returnSuccess(instanceNodeManager.getNodeList(application));
     }
 

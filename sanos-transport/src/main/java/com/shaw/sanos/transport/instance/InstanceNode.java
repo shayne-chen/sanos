@@ -61,7 +61,6 @@ public class InstanceNode extends Node {
 
     @Override
     public String toString() {
-        return String.format("instance, application:%s, host:%s, lastActiveTime:%s", application, ip + ":"+ port,
-                lastActiveTime);
+        return String.format("application:%s, host:%s, lastActiveTime:%s", application, ip + ":"+ port, lastActiveTime);
     }
 }

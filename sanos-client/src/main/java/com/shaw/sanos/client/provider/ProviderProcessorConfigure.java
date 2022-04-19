@@ -22,7 +22,7 @@ public class ProviderProcessorConfigure implements BeanDefinitionRegistryPostPro
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
         registerBean(beanDefinitionRegistry, "providerProcessor", ProviderProcessor.class);
-        registerBean(beanDefinitionRegistry, "providerHeartBeatProcessor", ProviderHeartBeatProcessor.class);
+        registerBean(beanDefinitionRegistry, "providerShutdownProcessor", ProviderShutdownProcessor.class);
     }
 
     @Override

@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  * 消费者逻辑，获取关注的apps的providers地址
  */
 
-public class ConsumerProcessor extends AbstractEnvironmentProcessor {
+public class ConsumerProcessor extends AbstractEnvironmentProcessor<ApplicationReadyEvent> {
 
     private static final Logger logger = LoggerFactory.getLogger(ConsumerProcessor.class);
 
