@@ -17,14 +17,14 @@
 		<version>2.6.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.shaw</groupId>
-	<artifactId>sanos</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>sanos</name>
+	<groupId>com.shaw.sanos</groupId>
+	<artifactId>sanos-register-center</artifactId>
+	<version>0.0.1</version>
+	<name>sanos-register-center</name>
 	<description>A register center demo</description>
 	<properties>
 		<java.version>11</java.version>
-		<module.version>0.0.1-SNAPSHOT</module.version>
+		<module.version>0.0.1</module.version>
 		<spring.version>2.6.4</spring.version>
 	</properties>
 
